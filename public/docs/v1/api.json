@@ -1,0 +1,264 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API iRun",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/corredores": {
+            "get": {
+                "tags": [
+                    "Corredores"
+                ],
+                "summary": "Pesquisa por corredores",
+                "operationId": "runners.index",
+                "parameters": [
+                    {
+                        "in":"query",
+                        "name":"_fields",
+                        "schema":{
+                            "type":"string",
+                            "example":"id,name,cpf,birthdate,age"
+                        },
+                        "required":false,
+                        "description":"Informa quais campos devem ser retornados na pesquisa pela API"
+                    },
+                    {
+                        "in":"query",
+                        "name":"_include",
+                        "schema":{
+                            "type":"string",
+                            "example":"races"
+                        },
+                        "required":false,
+                        "description":"Dados associados que devem ser retornados"
+                    },
+                    {
+                        "in":"query",
+                        "name":"id",
+                        "schema":{
+                            "type":"integer",
+                            "example":1
+                        },
+                        "required":false,
+                        "description":"Id do corredor"
+                    },
+                    {
+                        "in":"query",
+                        "name":"cpf",
+                        "schema":{
+                            "type":"string",
+                            "example":"11122233344"
+                        },
+                        "required":false,
+                        "description":"CPF do corredor"
+                    },
+                    {
+                        "in":"query",
+                        "name":"birthdate",
+                        "schema":{
+                            "type":"string",
+                            "example":"2000-05-01"
+                        },
+                        "required":false,
+                        "description":"Data de nascimento do corredor"
+                    }
+                ],
+                "responses": {
+                    "200":{
+                        "description":"success",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "properties":{
+                                        "entity":{
+                                            "type":"string",
+                                            "example":"runner"
+                                        },
+                                        "action":{
+                                            "type":"string",
+                                            "example":"index"
+                                        },
+                                        "result":{
+                                            "type":"string",
+                                            "example":"success"
+                                        },
+                                        "paging":{
+                                            "$ref":"#/components/schemas/Runner"
+                                        },
+                                        "content":{
+                                            "type":"array",
+                                            "items":{
+                                                "$ref":"#/components/schemas/Runner"
+                                            }
+                                        }
+                                    },
+                                    "type":"object"
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description":"failed",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "properties":{
+                                        "entity":{
+                                            "type":"string",
+                                            "example":"runner"
+                                        },
+                                        "action":{
+                                            "type":"string",
+                                            "example":"index"
+                                        },
+                                        "result":{
+                                            "type":"string",
+                                            "example":"failed"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example":"This given data was invalid."
+                                        }
+                                    },
+                                    "type":"object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Runner": {
+                "title": "Runner Model",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "Id do corredor",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Nome do corredor",
+                        "example": "José da Silva"
+                    },
+                    "cpf": {
+                        "type": "string",
+                        "description": "CPF do corredor",
+                        "example": "11122233344"
+                    },
+                    "birthdate": {
+                        "type": "string",
+                        "description": "Data de nascimento do corredor",
+                        "example": "2000-05-01"
+                    },
+                    "age": {
+                        "type": "integer",
+                        "description": "Idade do corredor",
+                        "example": 20
+                    },
+                    "races": {
+                        "type": "array",
+                        "format": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Race"
+                        }
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "description": "Data em que o corredor foi cadastrado",
+                        "example": "2021/01/15 10:00:00"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "description": "Data em que os dados do corredor foram atualizados",
+                        "example": "2021/01/21 09:42:42"
+                    }
+                },
+                "type": "object"
+            },
+            "Race": {
+                "title": "Race Model",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "Id da corrida",
+                        "example": 1
+                    },
+                    "category": {
+                        "type": "string",
+                        "description": "Categoria da corrida",
+                        "example": "5"
+                    },
+                    "date": {
+                        "type": "string",
+                        "description": "Data da corrida",
+                        "example": "2021-06-01"
+                    },
+                    "competitors": {
+                        "type": "array",
+                        "format": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Competitors"
+                        }
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "description": "Data em que a corrida foi cadastrada",
+                        "example": "2021-01-15 10:00:00"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "description": "Data em que os dados da corrida foram atualizados",
+                        "example": "2021-01-21 09:42:42"
+                    }
+                },
+                "type": "object"
+            },
+            "Competitors": {
+                "title": "Competitors Model",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "description": "Id do corredor na corrida",
+                        "example": 1
+                    },
+                    "race_id": {
+                        "type": "integer",
+                        "description": "Id da corrida",
+                        "example": 1
+                    },
+                    "runner_id": {
+                        "type": "integer",
+                        "description": "Id do corredor",
+                        "example": 1
+                    },
+                    "started_in": {
+                        "type": "string",
+                        "description": "Horário em que o corredor começou a corrida",
+                        "example": "2021-06-01 07:11:25"
+                    },
+                    "ended_in": {
+                        "type": "string",
+                        "description": "Horário em que o corredor finalizou a corrida",
+                        "example": "2021-06-01 08:05:59"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "description": "Data em que os dados do corredor foram criados na corrida",
+                        "example": "2021-01-21 09:42:42"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "description": "Data em que os dados do corredor foram atualizados na corrida",
+                        "example": "2021-06-01 08:05:59"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}

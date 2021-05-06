@@ -14,5 +14,9 @@
 */
 
 $router->get('/', function () use ($router) {
-    return $router->app->version();
+    return redirect(route('v1.race.index'));
+});
+
+$router->group(['prefix' => "/v1", 'as' => "v1"], function () use ($router) {
+    include(__DIR__ . "/v1.php");
 });
