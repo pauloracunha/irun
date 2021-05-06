@@ -24,3 +24,5 @@ vendor/bin/phpunit
 ## TODO
 - [ ] Completar documentação Swagger
 - [ ] Autenticação JWT
+- [ ] Classificação global (de todas as corridas) por categoria
+- [ ] Classificação global (de todas as corridas) por idade (Avaliar possibilidade)
