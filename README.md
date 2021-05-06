@@ -1,4 +1,4 @@
-# iRun
+# iRun API
 
 ## Descrição
 IRun is a racing app for those who want to go to the next level. Face challenges to go from amateur to professional.
@@ -20,3 +20,7 @@ Os testes de models e das rotas de registro, atualização e exclusão de dados 
 ```
 vendor/bin/phpunit
 ```
+
+## TODO
+- [ ] Completar documentação Swagger
+- [ ] Autenticação JWT
